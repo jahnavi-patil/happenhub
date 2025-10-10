@@ -32,15 +32,16 @@ public class SecurityConfig {
                 // Public endpoints
                 .requestMatchers("/api/users/signup", "/api/users/login").permitAll()
                 .requestMatchers("/api/organizers/signup", "/api/organizers/login").permitAll()
-                .requestMatchers("/api/events/all", "/api/events/search/**").permitAll()
+                .requestMatchers("/api/events/all", "/api/events/{id}", "/api/events/search/**", "/api/events/location/**", "/api/events/organizer/**").permitAll()
                 .requestMatchers("/", "/error", "/assets/**", "/static/**").permitAll()
                 .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 // Swagger UI and API docs (if you add them later)
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 // Protected endpoints
-                .requestMatchers("/api/events/create", "/api/events/update/**", "/api/events/delete/**").hasRole("ORGANIZER")
+                .requestMatchers("/api/events/add", "/api/events/create", "/api/events/update/**", "/api/events/delete/**").authenticated()
                 .requestMatchers("/api/bookings/**").authenticated()
-                .anyRequest().authenticated()
+                .requestMatchers("/api/users/update", "/api/users/favorites").authenticated()
+                .anyRequest().permitAll()
             )
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

@@ -69,7 +69,9 @@ public class DataInitializer {
                     299.99,
                     "🎯",
                     organizer1.getId(),
-                    organizer1.getEmail()
+                    organizer1.getEmail(),
+                    "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
+                    new String[] {"tech", "conference", "innovation"}
                 ),
                 new Event(
                     "Summer Music Festival",
@@ -80,7 +82,9 @@ public class DataInitializer {
                     49.99,
                     "🎵",
                     organizer1.getId(),
-                    organizer1.getEmail()
+                    organizer1.getEmail(),
+                    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&h=600&fit=crop",
+                    new String[] {"music", "festival", "summer", "outdoor"}
                 ),
                 new Event(
                     "Art Exhibition",
@@ -91,7 +95,9 @@ public class DataInitializer {
                     25.00,
                     "🎨",
                     organizer2.getId(),
-                    organizer2.getEmail()
+                    organizer2.getEmail(),
+                    "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&h=600&fit=crop",
+                    new String[] {"art", "exhibition", "culture"}
                 ),
                 new Event(
                     "Food & Wine Festival",
@@ -102,7 +108,9 @@ public class DataInitializer {
                     75.00,
                     "🍷",
                     organizer2.getId(),
-                    organizer2.getEmail()
+                    organizer2.getEmail(),
+                    "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=800&h=600&fit=crop",
+                    new String[] {"food", "wine", "festival", "culinary"}
                 )
             );
 

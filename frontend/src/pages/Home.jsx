@@ -51,31 +51,42 @@ function Home() {
   }
 
   return (
-    <div className="home-container p-6 bg-[#6F1D1B] min-h-screen">
-      <SearchBar placeholder="Search by event title..." value={searchTerm} setValue={setSearchTerm} />
-      <SearchBar placeholder="Search by location..." value={locationTerm} setValue={setLocationTerm} />
-      <MoodFilter selectedMood={selectedMood} setSelectedMood={setSelectedMood} />
+    <div className="home-container p-6 bg-red-50 min-h-screen">
+      <div className="max-w-7xl mx-auto space-y-6">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex-1">
+            <SearchBar placeholder="Search by event title..." value={searchTerm} setValue={setSearchTerm} />
+          </div>
+          <div className="flex-1">
+            <SearchBar placeholder="Search by location..." value={locationTerm} setValue={setLocationTerm} />
+          </div>
+        </div>
+        
+        <MoodFilter selectedMood={selectedMood} setSelectedMood={setSelectedMood} />
 
-      <h2 className="section-title text-white text-2xl mt-6 mb-4">Upcoming Events</h2>
-      <div className="events-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredEvents.length > 0 ? (
-          filteredEvents.map(event => (
-            <EventCard
-              key={event.id}
-              id={event.id}
-              title={event.title}
-              date={event.date}
-              mood={event.mood}
-              location={event.location}
-              imageUrl={event.imageUrl}
-              description={event.description}
-              price={event.price}
-              tags={event.tags}
-            />
-          ))
-        ) : (
-          <p className="text-white text-center mt-4">No events found.</p>
-        )}
+        <h2 className="text-3xl font-bold text-red-900">Upcoming Events</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map(event => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                mood={event.mood}
+                location={event.location}
+                imageUrl={event.imageUrl}
+                description={event.description}
+                price={event.price}
+                tags={event.tags}
+              />
+            ))
+          ) : (
+            <div className="col-span-full">
+              <p className="text-red-700 text-center text-lg">No events found.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

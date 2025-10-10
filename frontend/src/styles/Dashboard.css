@@ -1,0 +1,72 @@
+/* Dashboard specific styles */
+.stats-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8;
+}
+
+.stat-card {
+  @apply bg-white rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+}
+
+.stat-label {
+  @apply text-gray-500 text-sm font-medium mb-2;
+}
+
+.stat-value {
+  @apply text-3xl font-bold text-red-700;
+}
+
+.welcome-banner {
+  @apply bg-gradient-to-r from-red-700 to-red-800 rounded-lg shadow-lg p-6 mb-8 text-white;
+}
+
+.event-card {
+  @apply bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow;
+}
+
+.event-header {
+  @apply flex items-center justify-between mb-3;
+}
+
+.event-status {
+  @apply px-2 py-1 text-xs rounded-full;
+}
+
+.event-status-upcoming {
+  @apply bg-green-100 text-green-800;
+}
+
+.event-status-past {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-2;
+}
+
+.progress-bar-fill {
+  @apply bg-red-600 h-2 rounded-full transition-all duration-500;
+}
+
+.tab-button {
+  @apply px-4 py-3 font-medium text-sm transition-colors relative;
+}
+
+.tab-button-active {
+  @apply text-red-700 border-b-2 border-red-700;
+}
+
+.tab-button-inactive {
+  @apply text-gray-500 hover:text-red-700;
+}
+
+.tab-count {
+  @apply ml-2 px-2 py-0.5 rounded-full text-xs;
+}
+
+.tab-count-upcoming {
+  @apply bg-red-100 text-red-700;
+}
+
+.tab-count-past {
+  @apply bg-gray-100 text-gray-600;
+}

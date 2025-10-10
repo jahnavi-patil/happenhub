@@ -19,7 +19,7 @@ function SearchBar({ placeholder, value, setValue }) {
     <div className="search-container mb-4">
       <input
         type="text"
-        className="w-full p-3 rounded-md bg-white/10 text-white placeholder-white/70 outline-none focus:ring-2 focus:ring-white/30"
+        className="w-full p-3 rounded-md border-2 border-red-200 bg-white text-gray-800 placeholder-gray-500 outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors"
         placeholder={placeholder}
         value={localValue}
         onChange={handleChange}

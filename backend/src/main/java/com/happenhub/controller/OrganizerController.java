@@ -4,9 +4,12 @@ import com.happenhub.model.Organizer;
 import com.happenhub.repository.OrganizerRepository;
 import com.happenhub.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/organizers")
@@ -23,29 +26,47 @@ public class OrganizerController {
 
     // Signup
     @PostMapping("/signup")
-    public String signup(@RequestBody Organizer organizer) {
+    public ResponseEntity<?> signup(@RequestBody Organizer organizer) {
         if (organizerRepository.findByEmail(organizer.getEmail()) != null) {
-            return "❌ Organizer already exists!";
+            return ResponseEntity.badRequest()
+                .body(Map.of("message", "❌ Organizer already exists!"));
         }
         // Encode password before saving
         organizer.setPassword(passwordEncoder.encode(organizer.getPassword()));
         organizerRepository.save(organizer);
-        return "✅ Organizer registered successfully!";
+        return ResponseEntity.ok()
+            .body(Map.of("message", "✅ Organizer registered successfully!"));
     }
 
-    // Login -> Return JWT Token
+    // Login -> Return JWT Token with user data
     @PostMapping("/login")
-    public String login(@RequestBody Organizer organizer) {
+    public ResponseEntity<?> login(@RequestBody Organizer organizer) {
         Organizer existing = organizerRepository.findByEmail(organizer.getEmail());
         if (existing == null) {
-            return "❌ Organizer not found!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", "No account found with this email."));
         }
         if (!passwordEncoder.matches(organizer.getPassword(), existing.getPassword())) {
-            return "❌ Incorrect password!";
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", "Incorrect password."));
         }
 
         String token = jwtUtil.generateToken(existing.getEmail());
-        return "✅ Login successful! Your token: " + token;
+        
+        // Create a sanitized organizer object without sensitive information
+        Map<String, Object> userResponse = Map.of(
+            "id", existing.getId(),
+            "email", existing.getEmail(),
+            "name", existing.getName() != null ? existing.getName() : existing.getEmail(),
+            "organization", existing.getOrganization() != null ? existing.getOrganization() : "",
+            "role", "ORGANIZER"
+        );
+        
+        return ResponseEntity.ok(Map.of(
+            "user", userResponse,
+            "token", token,
+            "message", "Login successful!"
+        ));
     }
 }
 

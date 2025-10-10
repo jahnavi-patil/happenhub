@@ -34,7 +34,9 @@ function AuthProvider({ children }) {
       setError(null);
       // Navigate based on user role
       if (userData.role === 'ORGANIZER') {
-        navigate('/dashboard');
+        navigate('/dashboard/organizer');
+      } else if (userData.role === 'USER') {
+        navigate('/dashboard/user');
       } else {
         navigate('/');
       }

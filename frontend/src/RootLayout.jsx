@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 export function RootLayout({ children }) {
   const location = useLocation();
@@ -10,9 +10,9 @@ export function RootLayout({ children }) {
   };
 
   return (
-    <div className="app min-h-screen flex flex-col bg-[#6F1D1B]">
+    <div className="min-h-screen flex flex-col">
       {!isAuthRoute(location.pathname) && <Navbar />}
-      <main className="flex-grow">
+      <main className="flex-grow bg-gray-50">
         {children}
       </main>
       {!isAuthRoute(location.pathname) && <Footer />}

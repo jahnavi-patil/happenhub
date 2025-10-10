@@ -21,7 +21,7 @@ public class EventController {
 
 
     // Add event
-    @PostMapping("/add")
+    @PostMapping({"/add", "/create"})
     public Object addEvent(@RequestHeader("Authorization") String authHeader,
                            @RequestBody Event event) {
         try {
@@ -32,6 +32,17 @@ public class EventController {
 
             String organizerEmail = jwtUtil.extractEmail(token);
             event.setOrganizerEmail(organizerEmail);
+            
+            // Set availableTickets to capacity if not set
+            if (event.getAvailableTickets() == 0 && event.getCapacity() > 0) {
+                event.setAvailableTickets(event.getCapacity());
+            }
+            
+            // Set default image if not provided
+            if (event.getImageUrl() == null || event.getImageUrl().isEmpty()) {
+                event.setImageUrl("https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop");
+            }
+            
             return eventRepository.save(event);
 
         } catch (Exception e) {
@@ -59,14 +70,47 @@ public class EventController {
         Optional<Event> eventOpt = eventRepository.findById(id);
         if (eventOpt.isPresent()) {
             Event event = eventOpt.get();
-            event.setTitle(updatedEvent.getTitle());
-            event.setLocation(updatedEvent.getLocation());
-            event.setDate(updatedEvent.getDate());
+            
+            // Update all fields
+            if (updatedEvent.getTitle() != null) event.setTitle(updatedEvent.getTitle());
+            if (updatedEvent.getDescription() != null) event.setDescription(updatedEvent.getDescription());
+            if (updatedEvent.getLocation() != null) event.setLocation(updatedEvent.getLocation());
+            if (updatedEvent.getDate() != null) event.setDate(updatedEvent.getDate());
+            if (updatedEvent.getMood() != null) event.setMood(updatedEvent.getMood());
+            if (updatedEvent.getImageUrl() != null) event.setImageUrl(updatedEvent.getImageUrl());
+            
+            // Update capacity and available tickets
+            if (updatedEvent.getCapacity() > 0) {
+                int oldCapacity = event.getCapacity();
+                int newCapacity = updatedEvent.getCapacity();
+                int ticketsSold = oldCapacity - event.getAvailableTickets();
+                
+                event.setCapacity(newCapacity);
+                // Recalculate available tickets: new capacity - tickets already sold
+                event.setAvailableTickets(Math.max(0, newCapacity - ticketsSold));
+            }
+            
+            // Update price (price >= 0 is valid)
+            if (updatedEvent.getPrice() >= 0) event.setPrice(updatedEvent.getPrice());
+            
+            // Update tags
+            if (updatedEvent.getTags() != null) event.setTags(updatedEvent.getTags());
+            
             eventRepository.save(event);
             return "✅ Event updated successfully!";
         } else {
             return "❌ Event not found!";
         }
+    }
+
+    // Get single event by id (public)
+    @GetMapping("/{id}")
+    public Object getEventById(@PathVariable String id) {
+        Optional<Event> eventOpt = eventRepository.findById(id);
+        if (eventOpt.isPresent()) {
+            return eventOpt.get();
+        }
+        return "❌ Event not found!";
     }
 
     // Delete event

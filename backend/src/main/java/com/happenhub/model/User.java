@@ -13,6 +13,8 @@ public class User {
     private String email;
     private String password;
     private String location;
+    private String phone;
+    private String bio;
 
     // Constructors
     public User() {}
@@ -41,4 +43,10 @@ public class User {
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
+
+    public String getBio() { return bio; }
+    public void setBio(String bio) { this.bio = bio; }
 }

@@ -55,8 +55,16 @@ export const api = {
       fetch(`${API_BASE_URL}/events/${id}`)
         .then(handleResponse),
 
+    // Get events for a specific organizer
+    getByOrganizer: (organizerId) =>
+      fetch(`${API_BASE_URL}/events/organizer/${organizerId}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      }).then(handleResponse),
+
     create: (data) => 
-      fetch(`${API_BASE_URL}/events/create`, {
+      fetch(`${API_BASE_URL}/events/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,6 +118,13 @@ export const api = {
         throw err;
       }),
 
+    // Best-effort: fetch a single user by id (if backend supports it)
+    getUser: (id) =>
+      fetch(`${API_BASE_URL}/users/${id}`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      }).then(handleResponse).catch(() => null)
+
+    ,
     signup: (type, data) => 
       timeoutFetch(`${API_BASE_URL}/${type === 'users' ? 'users' : 'organizers'}/signup`, {
         method: 'POST',
@@ -165,5 +180,32 @@ export const api = {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       }).then(handleResponse)
+  }
+  ,
+  // Users endpoints (profile, favorites)
+  users: {
+    getFavorites: () =>
+      fetch(`${API_BASE_URL}/users/favorites`, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      }).then(handleResponse).catch(() => []),
+
+    updateProfile: (data) =>
+      fetch(`${API_BASE_URL}/users/update`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(data)
+      }).then(handleResponse),
+
+    uploadProfileImage: (formData) =>
+      fetch(`${API_BASE_URL}/users/upload-image`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: formData
+      }).then(handleResponse).catch(() => ({ imageUrl: null }))
   }
 };

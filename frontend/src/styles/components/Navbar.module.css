@@ -1,0 +1,35 @@
+.navbar {
+  @apply bg-white shadow-md;
+}
+
+.navbar-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.navbar-content {
+  @apply flex justify-between h-16;
+}
+
+.brand-logo {
+  @apply flex items-center;
+}
+
+.brand-text {
+  @apply text-2xl font-bold text-red-700;
+}
+
+.nav-links {
+  @apply flex items-center gap-6;
+}
+
+.nav-link {
+  @apply text-gray-700 hover:text-red-700 font-medium transition-colors;
+}
+
+.nav-button {
+  @apply px-4 py-2 bg-red-700 text-white rounded-lg hover:bg-red-800 transition-colors;
+}
+
+.welcome-text {
+  @apply text-red-700 font-medium;
+}

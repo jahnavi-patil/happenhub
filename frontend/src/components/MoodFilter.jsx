@@ -19,8 +19,8 @@ function MoodFilter({ selectedMood, setSelectedMood }) {
             px-4 py-2 rounded-full flex items-center gap-2 
             transition-all duration-300 text-sm font-medium
             ${selectedMood === mood.emoji 
-              ? 'bg-[#FFB5A7] text-[#432818] shadow-lg transform scale-105' 
-              : 'bg-white/10 text-white hover:bg-[#FFB5A7] hover:text-[#432818]'
+              ? 'bg-[#FFB5A7] text-black shadow-lg transform scale-105' 
+              : 'bg-white text-black hover:bg-[#FFB5A7]'
             }
           `}
         >

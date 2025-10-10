@@ -28,8 +28,8 @@ function LoginOrganiser() {
     
     try {
       const response = await api.auth.login('organizers', formData);
-      login(response.user, response.token);
-      navigate('/dashboard');
+  login(response.user, response.token);
+  navigate('/dashboard/organizer');
     } catch (err) {
       setError(err.message);
     } finally {
@@ -98,7 +98,7 @@ function LoginOrganiser() {
         <div className="mt-8 text-center">
           <p className="text-[#432818]">
             Don't have an organizer account?{' '}
-            <Link to="/signup/organiser" className="text-[#9B2226] hover:text-[#6F1D1B] font-medium">
+            <Link to="/signup/organizer" className="text-[#9B2226] hover:text-[#6F1D1B] font-medium">
               Create Account
             </Link>
           </p>
