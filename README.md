@@ -284,26 +284,3 @@ PUT  /api/bookings/cancel/{id}   - Cancel booking
 
 ---
 
-## 📝 License
-
-This project is licensed under the MIT License.
-
----
-
-## 👨‍💻 Author
-
-**Atharv Patil**
-- GitHub: [@atharvpatil18](https://github.com/atharvpatil18)
-
----
-
-## 🙏 Acknowledgments
-
-- React and Vite communities
-- Spring Boot framework
-- MongoDB for database management
-- Tailwind CSS for styling
-
----
-
-Made with ❤️ using React, Spring Boot & MongoDB
